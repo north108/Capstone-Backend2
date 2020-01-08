@@ -1,14 +1,13 @@
+require('dotenv').config();
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Routes } from './routes/appRoutes';
 import * as mongoose from 'mongoose'
-// require('dotenv').config();
-const { DATABASE_URL } = require('../.env')
 
 class App {
   public app: express.Application;
-  public routePrv: Routes = new Routes();
-  public mongoUrl: string =  DATABASE_URL;
+  public routePrv: Routes = new Routes()
+  public mongoUrl: string =  process.env.DATABASE_URL;
 
   constructor() {
     this.app = express();

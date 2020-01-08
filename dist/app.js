@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const appRoutes_1 = require("./routes/appRoutes");
 const mongoose = require("mongoose");
-require('dotenv').config();
 class App {
     constructor() {
         this.routePrv = new appRoutes_1.Routes();
