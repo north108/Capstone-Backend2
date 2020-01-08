@@ -38,7 +38,7 @@ class UserController {
         });
     }
     deleteUser(request, response) {
-        User.remove({ _id: request.params.userId }, (error, user) => {
+        User.deleteOne({ _id: request.params.userId }, (error, user) => {
             if (error) {
                 response.send(error);
             }
