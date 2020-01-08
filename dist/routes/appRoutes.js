@@ -9,7 +9,7 @@ class Routes {
         app.route('/')
             .get((request, response) => {
             response.status(200).send({
-                message: 'GET request successful!'
+                message: "Welcome to Elizabeth's Capstone API"
             });
         });
         app.route('/users')

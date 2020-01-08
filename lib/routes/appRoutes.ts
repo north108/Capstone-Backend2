@@ -10,7 +10,7 @@ export class Routes {
     app.route('/')
     .get((request: Request, response: Response) => {
       response.status(200).send({
-        message: 'GET request successful!'
+        message: "Welcome to Elizabeth's Capstone API"
       })
     })
 
