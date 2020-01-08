@@ -1,6 +1,11 @@
 import {Request, Response} from 'express';
+import { UserController } from '../controllers/userController';
+
+
 
 export class Routes {
+  public userController: UserController = new UserController();
+
   public routes(app): void {
     app.route('/')
     .get((request: Request, response: Response) => {
@@ -11,36 +16,16 @@ export class Routes {
 
     app.route('/users')
     // get all users
-    .get((request: Request, response: Response) => {
-      response.status(200).send({
-        message: 'GET request successful!'
-      })
-    })
+    .get(this.userController.getUsers)
     // create new user
-    .post((request: Request, response: Response) => {
-      response.status(200).send({
-        message: 'POST request successful!'
-      })
-    })
+    .post(this.userController.addNewUser);
 
     app.route('/users/:userId')
-    // show user
-    .get((request: Request, response: Response) => {
-      response.status(200).send({
-        message: 'GET request successful!'
-      })
-    })
+    // Show user
+    .get(this.userController.getUserWithId)
     // Update a user
-    .put((request: Request, response: Response) => {        
-      response.status(200).send({
-        message: 'PUT request successful!'
-      })
-    })
+    .put(this.userController.updateUser)
     // Delete a user
-    .delete((request: Request, response: Response) => {
-      response.status(200).send({
-        message: 'DELETE request successful!'
-      })
-    })
+    .delete(this.userController.deleteUser)
   }
 }

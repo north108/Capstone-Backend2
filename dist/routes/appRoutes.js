@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const userController_1 = require("../controllers/userController");
 class Routes {
+    constructor() {
+        this.userController = new userController_1.UserController();
+    }
     routes(app) {
         app.route('/')
             .get((request, response) => {
@@ -10,36 +14,16 @@ class Routes {
         });
         app.route('/users')
             // get all users
-            .get((request, response) => {
-            response.status(200).send({
-                message: 'GET request successful!'
-            });
-        })
+            .get(this.userController.getUsers)
             // create new user
-            .post((request, response) => {
-            response.status(200).send({
-                message: 'POST request successful!'
-            });
-        });
+            .post(this.userController.addNewUser);
         app.route('/users/:userId')
-            // show user
-            .get((request, response) => {
-            response.status(200).send({
-                message: 'GET request successful!'
-            });
-        })
+            // Show user
+            .get(this.userController.getUserWithId)
             // Update a user
-            .put((request, response) => {
-            response.status(200).send({
-                message: 'PUT request successful!'
-            });
-        })
+            .put(this.userController.updateUser)
             // Delete a user
-            .delete((request, response) => {
-            response.status(200).send({
-                message: 'DELETE request successful!'
-            });
-        });
+            .delete(this.userController.deleteUser);
     }
 }
 exports.Routes = Routes;
