@@ -8,9 +8,7 @@
     "tsc": "tsc",
     "dev": "ts-node ./lib/server.ts",
     "start": "nodemon ./dist/server.js",
-    "prod": "npm run build && npm run start",
-    "build": "tsc"
-    
+    "prod": "npm run build && npm run start"
   },
   "author": "Elizabeth Northrop",
   "license": "ISC",
