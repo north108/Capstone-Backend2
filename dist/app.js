@@ -5,7 +5,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const appRoutes_1 = require("./routes/appRoutes");
 const mongoose = require("mongoose");
-debugger;
 class App {
     constructor() {
         this.routePrv = new appRoutes_1.Routes();
@@ -14,6 +13,13 @@ class App {
         this.config();
         this.routePrv.routes(this.app);
         this.mongoSetup();
+        // this.handleError(error);
+    }
+    handleError(error) {
+        return ({
+            success: false,
+            error: error.message
+        });
     }
     config() {
         this.app.use(bodyParser.json());
@@ -21,7 +27,10 @@ class App {
     }
     mongoSetup() {
         mongoose.Promise = global.Promise;
-        mongoose.connect(this.mongoUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true }).catch('error');
+        console.log("HEREEEEE");
+        console.log(mongoose.Promise);
+        mongoose.connect(this.mongoUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
+            .catch(error => this.handleError(error));
     }
 }
 exports.default = new App().app;
