@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const userModel_1 = require("../models/userModel");
-const userSessionModel_1 = require("../models/userSessionModel");
+// import { UserSession } from '../models/UserSession'
+const UserSession = require('../models/UserSession');
 const User = mongoose.model('User', userModel_1.UserSchema);
 class UserController {
     addNewUser(request, response) {
@@ -48,23 +49,32 @@ class UserController {
     }
     // source: https://www.youtube.com/watch?v=s1swJLYxLAA
     login(request, response, next) {
-        const { body } = request.body;
-        const { firstName, lastName, password } = body;
-        let { email } = body;
-        if (!email) {
+        // const { body } = request.body
+        console.log('HEEEERE');
+        console.log(request.body.firstName);
+        // const {
+        //   firstName,
+        //   lastName,
+        //   password
+        // } = body;
+        // let {
+        //   email
+        // } = body;
+        const userLogin = request.body;
+        if (!userLogin.email) {
             return response.send({
                 success: false,
                 message: 'Error: Email cannot be blank.'
             });
         }
-        if (!password) {
+        if (!userLogin.password) {
             return response.send({
                 success: false,
                 message: 'Error: Password cannot be blank.'
             });
         }
         User.find({
-            email: email
+            email: userLogin.email
         }, (error, users) => {
             if (error) {
                 return response.send({
@@ -79,13 +89,13 @@ class UserController {
                 });
             }
             const user = users[0];
-            if (user.password != password) {
+            if (user.password != userLogin.password) {
                 return response.send({
                     success: false,
                     message: 'Error: Invalid password'
                 });
             }
-            const userSession = new userSessionModel_1.UserSessionSchema();
+            const userSession = new UserSession();
             userSession.userId = user._id;
             userSession.save((error, doc) => {
                 if (error) {

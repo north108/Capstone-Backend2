@@ -1,8 +1,6 @@
-import * as mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-export const UserSessionSchema = new Schema({
+const UserSessionSchema = new mongoose.Schema({
   userId: {
     type: String,
     default: -1
@@ -16,3 +14,5 @@ export const UserSessionSchema = new Schema({
     defualt: false
   }
 });
+
+module.exports = mongoose.model('UserSession', UserSessionSchema)
