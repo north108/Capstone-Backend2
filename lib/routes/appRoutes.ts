@@ -27,5 +27,9 @@ export class Routes {
     .put(this.userController.updateUser)
     // Delete a user
     .delete(this.userController.deleteUser)
+
+    app.route('/login')
+    // login
+    .post(this.userController.login)
   }
 }

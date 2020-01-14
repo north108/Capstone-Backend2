@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Routes } from './routes/appRoutes';
 import * as mongoose from 'mongoose'
-
+debugger;
 class App {
   public app: express.Application;
   public routePrv: Routes = new Routes()
@@ -23,7 +23,7 @@ class App {
 
   private mongoSetup(): void{
     mongoose.Promise = global.Promise;
-    mongoose.connect(this.mongoUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(this.mongoUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true }).catch('error');
   }
 }
 
