@@ -31,5 +31,13 @@ export class Routes {
     app.route('/login')
     // login
     .post(this.userController.login)
+
+    // app.route('/verify')
+    // // verify session
+    // .get(this.userController.verify)
+
+    app.route('/logout')
+    // logout
+    .get(this.userController.logout)
   }
 }

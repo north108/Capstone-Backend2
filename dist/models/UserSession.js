@@ -4,13 +4,13 @@ const UserSessionSchema = new mongoose.Schema({
         type: String,
         default: -1
     },
-    timestamp: {
-        type: Date,
-        default: Date.now()
-    },
     isDeleted: {
         type: Boolean,
         defualt: false
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now()
     }
 });
 module.exports = mongoose.model('UserSession', UserSessionSchema);

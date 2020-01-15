@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const userModel_1 = require("../models/userModel");
-// import { UserSession } from '../models/UserSession'
 const UserSession = require('../models/UserSession');
 const User = mongoose.model('User', userModel_1.UserSchema);
 class UserController {
@@ -49,17 +48,6 @@ class UserController {
     }
     // source: https://www.youtube.com/watch?v=s1swJLYxLAA
     login(request, response, next) {
-        // const { body } = request.body
-        console.log('HEEEERE');
-        console.log(request.body.firstName);
-        // const {
-        //   firstName,
-        //   lastName,
-        //   password
-        // } = body;
-        // let {
-        //   email
-        // } = body;
         const userLogin = request.body;
         if (!userLogin.email) {
             return response.send({
@@ -109,6 +97,55 @@ class UserController {
                     message: 'Valid login',
                     token: doc._id
                 });
+            });
+        });
+    }
+    // public verify(request: Request, response: Response, next){
+    //   const { query } = request;
+    //   const { token } = query;
+    //   UserSession.find({
+    //     _id: token,
+    //     isDeleted: false
+    //   }, (error, sessions) => {
+    //     if (error) {
+    //       return response.send({
+    //         success: false,
+    //         message: 'Error: server error'
+    //       });
+    //     }
+    //     if (sessions.length != 1) {
+    //       console.log('HEEERE')
+    //       console.log(sessions)
+    //       return response.send({
+    //         success: false,
+    //         message: 'Error: Invalid'
+    //       })
+    //     } else {
+    //       return response.send({
+    //         success: true,
+    //         message: 'Valid'
+    //       })
+    //     }
+    //   })
+    // }
+    logout(request, response, next) {
+        const { query } = request;
+        const { token } = query;
+        UserSession.findOneAndUpdate({
+            _id: token,
+            isDeleted: false
+        }, {
+            $set: { isDeleted: true }
+        }, null, (error, sessions) => {
+            if (error) {
+                return response.send({
+                    success: false,
+                    message: 'Error: Server error'
+                });
+            }
+            return response.send({
+                success: true,
+                message: 'Logout successful'
             });
         });
     }

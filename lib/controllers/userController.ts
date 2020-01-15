@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { UserSchema } from '../models/userModel';
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 const UserSession = require('../models/UserSession');
 
 const User = mongoose.model('User', UserSchema);
@@ -115,4 +115,57 @@ export class UserController {
     });
   }
 
+  // public verify(request: Request, response: Response, next){
+  //   const { query } = request;
+  //   const { token } = query;
+
+  //   UserSession.find({
+  //     _id: token,
+  //     isDeleted: false
+  //   }, (error, sessions) => {
+  //     if (error) {
+  //       return response.send({
+  //         success: false,
+  //         message: 'Error: server error'
+  //       });
+  //     }
+
+  //     if (sessions.length != 1) {
+  //       console.log('HEEERE')
+  //       console.log(sessions)
+  //       return response.send({
+  //         success: false,
+  //         message: 'Error: Invalid'
+  //       })
+  //     } else {
+  //       return response.send({
+  //         success: true,
+  //         message: 'Valid'
+  //       })
+  //     }
+  //   })
+  // }
+
+  public logout(request: Request, response: Response, next) {
+    const { query } = request;
+    const { token } = query;
+
+    UserSession.findOneAndUpdate({
+      _id: token,
+      isDeleted: false
+    }, {
+      $set: {isDeleted:true}
+    }, null, (error, sessions) => {
+      if (error) {
+        return response.send({
+          success: false,
+          message: 'Error: Server error'
+        });
+      }
+      return response.send({
+        success: true,
+        message: 'Logout successful'
+      });
+    })
+  }
 }

@@ -27,8 +27,6 @@ class App {
     }
     mongoSetup() {
         mongoose.Promise = global.Promise;
-        console.log("HEREEEEE");
-        console.log(mongoose.Promise);
         mongoose.connect(this.mongoUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
             .catch(error => this.handleError(error));
     }
