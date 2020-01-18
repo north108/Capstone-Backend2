@@ -73,7 +73,7 @@ class UserController {
             if (users.length != 1) {
                 return response.send({
                     success: false,
-                    message: 'Error: Invalid'
+                    message: 'Error: Invalid login or password'
                 });
             }
             const user = users[0];
@@ -94,7 +94,7 @@ class UserController {
                 }
                 return response.send({
                     success: true,
-                    message: 'Valid login',
+                    // message: 'Valid login',
                     token: doc._id
                 });
             });
