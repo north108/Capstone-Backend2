@@ -145,7 +145,6 @@ class UserController {
             }
             return response.send({
                 success: true,
-                message: 'Logout successful'
             });
         });
     }
